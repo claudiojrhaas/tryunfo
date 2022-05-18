@@ -1,5 +1,5 @@
 import React from 'react';
-import './app.css'
+import './app.css';
 
 import Form from './components/Form';
 import Card from './components/Card';
@@ -19,18 +19,18 @@ class App extends React.Component {
   }
 
   onInputChange = ({ target }) => {
-    const { name } = target;
+    const { id } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
 
     this.setState({
-      [name]: value,
+      [id]: value,
     });
   }
 
   render() {
     return (
       <div>
-        <h1>Tryunfo</h1>
+        <h1 className="title">Tryunfo</h1>
         <Form { ...this.state } onInputChange={ this.onInputChange } />
         <Card { ...this.state } onInputChange={ this.onInputChange } />
       </div>
