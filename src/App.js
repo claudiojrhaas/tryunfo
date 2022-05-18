@@ -1,5 +1,5 @@
 import React from 'react';
-import './app.css';
+import './App.css';
 
 import Form from './components/Form';
 import Card from './components/Card';
