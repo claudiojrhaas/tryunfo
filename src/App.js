@@ -18,21 +18,35 @@ class App extends React.Component {
     isSaveButtonDisabled: false,
   }
 
+  validationSaveButton = () => {
+    ({
+      cardName, cardImage, cardDescription, cardAttr1, cardAttr2, cardAttr3,
+    } = this.state);
+
+    totalSkillsValues = cardAttr1 + cardAttr2 + cardAttr3;
+    if (cardName === ''
+    || cardDescription === ''
+    || cardImage === ''
+    ) this.setState({ isSaveButtonDisabled: true });
+  }
+
   onInputChange = ({ target }) => {
-    const { id } = target;
+    const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
 
     this.setState({
-      [id]: value,
-    });
+      [name]: value,
+    }, () => this.validationSaveButton());
   }
 
   render() {
     return (
       <div>
         <h1 className="title">Tryunfo</h1>
-        <Form { ...this.state } onInputChange={ this.onInputChange } />
-        <Card { ...this.state } onInputChange={ this.onInputChange } />
+        <div className="container">
+          <Form { ...this.state } onInputChange={ this.onInputChange } />
+          <Card { ...this.state } onInputChange={ this.onInputChange } />
+        </div>
       </div>
     );
   }
