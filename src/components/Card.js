@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const imageDefault = (
+  'https://static.netshoes.com.br/2.32.23/netshoesbr/images/ajax-loading.svg');
+
 class Card extends React.Component {
   render() {
     const {
@@ -17,33 +20,32 @@ class Card extends React.Component {
     return (
       <div className="card">
         <p data-testid="name-card">
-          Nome da carta
           { cardName }
         </p>
 
         <img
+          className="cardImage"
           data-testid="image-card"
-          src={ cardImage }
+          src={ cardImage.lenght ? cardImage : imageDefault }
           alt={ cardName }
         />
 
         <p data-testid="description-card">
-          Descrição
           { cardDescription }
         </p>
 
         <p data-testid="attr1-card">
-          Attr1:
+          Attr 1:..........
           { cardAttr1 }
         </p>
 
         <p data-testid="attr2-card">
-          Attr2:
+          Attr 2:..........
           { cardAttr2 }
         </p>
 
         <p data-testid="attr3-card">
-          Attr3:
+          Attr 3:..........
           { cardAttr3 }
         </p>
 

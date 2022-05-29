@@ -4,18 +4,23 @@ import './App.css';
 import Form from './components/Form';
 import Card from './components/Card';
 
+const INITIAL_STATE = {
+  cardName: '',
+  cardDescription: '',
+  cardAttr1: '0',
+  cardAttr2: '0',
+  cardAttr3: '0',
+  cardImage: '',
+  cardRare: '',
+  cardTrunfo: false,
+  hasTrunfo: false,
+  isSaveButtonDisabled: true,
+};
+
 class App extends React.Component {
   state = {
-    cardName: '',
-    cardDescription: '',
-    cardAttr1: '0',
-    cardAttr2: '0',
-    cardAttr3: '0',
-    cardImage: '',
-    cardRare: '',
-    cardTrunfo: false,
-    hasTrunfo: false,
-    isSaveButtonDisabled: true,
+    ...INITIAL_STATE,
+    cards: [],
   }
 
   validateSaveButton = () => {
@@ -54,13 +59,54 @@ class App extends React.Component {
     }, () => this.validateSaveButton());
   }
 
+  // handleClearState = () => {
+  //   this.SetState({ ...INITIAL_STATE }),
+  // }
+
+  // Continuar o video no minuto 28
+  onSaveButtonClick = () => {
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    } = this.state;
+    this.setState((prevState) => ({
+      cards: [
+        ...prevState.cards,
+        {
+          cardName,
+          cardDescription,
+          cardAttr1,
+          cardAttr2,
+          cardAttr3,
+          cardImage,
+          cardRare,
+          cardTrunfo,
+        },
+      ],
+    }),
+    () => this.handleClearState());
+  }
+
   render() {
     return (
       <div>
         <h1 className="title">Tryunfo</h1>
         <div className="container">
-          <Form { ...this.state } onInputChange={ this.onInputChange } />
-          <Card { ...this.state } onInputChange={ this.onInputChange } />
+          <Form
+            { ...this.state }
+            onInputChange={ this.onInputChange }
+            onSaveButtonClick={ this.onSaveButtonClick }
+          />
+          <Card
+            { ...this.state }
+            onInputChange={ this.onInputChange }
+          />
         </div>
       </div>
     );
