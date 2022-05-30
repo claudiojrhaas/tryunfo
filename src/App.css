@@ -14,14 +14,20 @@
   padding: 10px;
 }
 
-.card {
-  border: 0.5px solid black;
+.card, .cardList {
+  border: 5px solid rgb(8, 65, 116);
+  color: black;
   display: flex;
   flex-direction: column;
+  font-family: monospace;
+  height: 450px;
   margin-right: 20%;
-  width: 20%;
+  padding: 20px;
+  text-align: center;
+  width: 200px;
 }
 
-.cardImage {
+.cardImage, .imageCardList {
+  height: 100%;
   width: 100%;
 }

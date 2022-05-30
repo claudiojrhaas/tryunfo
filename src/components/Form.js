@@ -98,6 +98,7 @@ class Form extends React.Component {
           <select
             name="cardRare"
             id="cardRare"
+            type="select"
             data-testid="rare-input"
             value={ cardRare }
             onChange={ onInputChange }
@@ -108,17 +109,22 @@ class Form extends React.Component {
           </select>
         </label>
 
-        <label htmlFor="cardTrunfo">
-          Super-Trunfo
-          <input
-            name="cardTrunfo"
-            id="cardTrunfo"
-            type="checkbox"
-            data-testid="trunfo-input"
-            checked={ cardTrunfo }
-            onChange={ onInputChange }
-          />
-        </label>
+        {
+          hasTrunfo
+            ? (<span>Você já tem um Super Trunfo em seu baralho</span>) : (
+              <label htmlFor="cardTrunfo">
+                Super-Trunfo
+                <input
+                  name="cardTrunfo"
+                  id="cardTrunfo"
+                  type="checkbox"
+                  data-testid="trunfo-input"
+                  checked={ cardTrunfo }
+                  onChange={ onInputChange }
+                />
+              </label>
+            )
+        }
 
         <button
           name="save-button"
@@ -131,7 +137,6 @@ class Form extends React.Component {
           Salvar
         </button>
 
-        <span>{hasTrunfo}</span>
       </form>
     );
   }
