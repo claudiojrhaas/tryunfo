@@ -48,6 +48,7 @@ CardList.propTypes = {
     cardRare: PropTypes.string.isRequired,
     cardTrunfo: PropTypes.bool.isRequired,
   }).isRequired,
+  onBtnExcludeClick: PropTypes.func.isRequired,
 };
 
 export default CardList;
