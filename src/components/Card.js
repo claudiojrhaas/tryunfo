@@ -26,7 +26,7 @@ class Card extends React.Component {
         <img
           className="cardImage"
           data-testid="image-card"
-          src={ cardImage.lenght ? cardImage : imageDefault }
+          src={ cardImage || imageDefault }
           alt={ cardName }
         />
 

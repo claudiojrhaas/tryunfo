@@ -3,6 +3,7 @@ import './App.css';
 
 import Form from './components/Form';
 import Card from './components/Card';
+import CardList from './components/CardList';
 
 const INITIAL_STATE = {
   cardName: '',
@@ -59,11 +60,10 @@ class App extends React.Component {
     }, () => this.validateSaveButton());
   }
 
-  // handleClearState = () => {
-  //   this.SetState({ ...INITIAL_STATE }),
-  // }
+  handleClearState = () => {
+    this.setState({ ...INITIAL_STATE });
+  }
 
-  // Continuar o video no minuto 28
   onSaveButtonClick = () => {
     const {
       cardName,
@@ -75,25 +75,29 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
     } = this.state;
-    this.setState((prevState) => ({
-      cards: [
-        ...prevState.cards,
-        {
-          cardName,
-          cardDescription,
-          cardAttr1,
-          cardAttr2,
-          cardAttr3,
-          cardImage,
-          cardRare,
-          cardTrunfo,
-        },
-      ],
-    }),
-    () => this.handleClearState());
+    this.setState(
+      (prevState) => ({
+        cards: [
+          ...prevState.cards,
+          {
+            cardName,
+            cardDescription,
+            cardAttr1,
+            cardAttr2,
+            cardAttr3,
+            cardImage,
+            cardRare,
+            cardTrunfo,
+          },
+        ],
+      }),
+      () => this.handleClearState(),
+    );
   }
 
   render() {
+    const { cards } = this.state;
+
     return (
       <div>
         <h1 className="title">Tryunfo</h1>
@@ -107,6 +111,21 @@ class App extends React.Component {
             { ...this.state }
             onInputChange={ this.onInputChange }
           />
+        </div>
+        <div>
+          { cards ? (
+            <span>
+              { cards.map((card) => (
+                <CardList
+                  key={ cards.length }
+                  cardImage={ card.cardImage }
+                  cardName={ card.cardName }
+                />
+              )) }
+            </span>
+          ) : (
+            <span>Nenhuma carta adicionada</span>
+          )}
         </div>
       </div>
     );
