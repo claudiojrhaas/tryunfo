@@ -5,6 +5,7 @@ class CardList extends React.Component {
   render() {
     const {
       card,
+      onBtnExcludeClick,
     } = this.props;
 
     return (
@@ -23,6 +24,14 @@ class CardList extends React.Component {
         <div>
           { card.cardTrunfo && <div>Super Trunfo</div> }
         </div>
+        <button
+          type="button"
+          data-testid="delete-button"
+          onClick={ onBtnExcludeClick }
+        >
+          Excluir
+
+        </button>
       </div>
     );
   }

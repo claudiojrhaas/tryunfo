@@ -70,6 +70,12 @@ class App extends React.Component {
       () => this.checkTrunfo());
   }
 
+  onBtnExcludeClick = (index) => {
+    const { cards } = this.state;
+    cards.splice(index, 1);
+    this.setState({ cards }, () => this.checkTrunfo());
+  }
+
   onSaveButtonClick = () => {
     const {
       cardName,
@@ -126,6 +132,7 @@ class App extends React.Component {
                   key={ index }
                   card={ card }
                   { ...this.state }
+                  onBtnExcludeClick={ this.onBtnExcludeClick }
                 />
               )) }
             </span>
