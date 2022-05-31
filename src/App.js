@@ -22,6 +22,7 @@ class App extends React.Component {
   state = {
     ...INITIAL_STATE,
     cards: [],
+    searchFilterName: '',
   }
 
   validateSaveButton = () => {
@@ -108,7 +109,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { cards } = this.state;
+    const { cards, searchFilterName } = this.state;
 
     return (
       <div>
@@ -125,16 +126,30 @@ class App extends React.Component {
           />
         </div>
         <div>
+          Todas as Cartas
+          <label htmlFor="searchFilterName">
+            Filtros de busca
+            <input
+              name="searchFilterName"
+              type="text"
+              placeholder="Nome da Carta"
+              data-testid="name-filter"
+              value={ searchFilterName }
+              onChange={ this.onInputChange }
+            />
+          </label>
           { cards ? (
             <span>
-              { cards.map((card, index) => (
-                <CardList
-                  key={ index }
-                  card={ card }
-                  { ...this.state }
-                  onBtnExcludeClick={ this.onBtnExcludeClick }
-                />
-              )) }
+              { cards
+                .filter((name) => name.cardName.includes(searchFilterName))
+                .map((card, index) => (
+                  <CardList
+                    key={ index }
+                    card={ card }
+                    { ...this.state }
+                    onBtnExcludeClick={ this.onBtnExcludeClick }
+                  />
+                )) }
             </span>
           ) : (
             <span>Nenhuma carta adicionada</span>

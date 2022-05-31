@@ -9,29 +9,31 @@ class CardList extends React.Component {
     } = this.props;
 
     return (
-      <div className="cardList">
-        <p>{ card.cardName }</p>
-        <p>{ card.cardDescription }</p>
-        <img
-          className="imageCardList"
-          src={ card.cardImage }
-          alt={ card.cardName }
-        />
-        <p>{ card.cardAttr1 }</p>
-        <p>{ card.cardAttr2 }</p>
-        <p>{ card.cardAttr3 }</p>
-        <p>{ card.cardRare }</p>
-        <div>
-          { card.cardTrunfo && <div>Super Trunfo</div> }
-        </div>
-        <button
-          type="button"
-          data-testid="delete-button"
-          onClick={ onBtnExcludeClick }
-        >
-          Excluir
+      <div>
+        <div className="cardList">
+          <p>{ card.cardName }</p>
+          <p>{ card.cardDescription }</p>
+          <img
+            className="imageCardList"
+            src={ card.cardImage }
+            alt={ card.cardName }
+          />
+          <p>{ card.cardAttr1 }</p>
+          <p>{ card.cardAttr2 }</p>
+          <p>{ card.cardAttr3 }</p>
+          <p>{ card.cardRare }</p>
+          <div>
+            { card.cardTrunfo && <div>Super Trunfo</div> }
+          </div>
+          <button
+            type="button"
+            data-testid="delete-button"
+            onClick={ onBtnExcludeClick }
+          >
+            Excluir
 
-        </button>
+          </button>
+        </div>
       </div>
     );
   }
