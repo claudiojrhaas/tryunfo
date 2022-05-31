@@ -94,7 +94,7 @@ class Form extends React.Component {
         </label>
 
         <label htmlFor="cardRare">
-          Rarnameade
+          Raridade
           <select
             name="cardRare"
             id="cardRare"

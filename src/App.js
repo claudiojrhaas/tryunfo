@@ -23,6 +23,8 @@ class App extends React.Component {
     ...INITIAL_STATE,
     cards: [],
     searchFilterName: '',
+    searchFilterRare: 'todas',
+    searchFilterTrunfo: false,
   }
 
   validateSaveButton = () => {
@@ -109,7 +111,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { cards, searchFilterName } = this.state;
+    const { cards, searchFilterName, searchFilterRare } = this.state;
 
     return (
       <div>
@@ -138,10 +140,36 @@ class App extends React.Component {
               onChange={ this.onInputChange }
             />
           </label>
+          <label htmlFor="searchFilterRare">
+            <select
+              name="searchFilterRare"
+              type="select"
+              data-testid="rare-filter"
+              value={ searchFilterRare }
+              onChange={ this.onInputChange }
+            >
+              <option value="todas">Todas</option>
+              <option value="normal">Normal</option>
+              <option value="raro">Raro</option>
+              <option value="muito raro">Muito Raro</option>
+            </select>
+          </label>
+          <label htmlFor="searchFilterTrunfo">
+            Super Trunfo
+            <input
+              type="checkbox"
+              name="searchFilterTrunfo"
+              data-testid="trunfo-filter"
+              onClick={ this.onInputChange }
+            />
+          </label>
           { cards ? (
             <span>
               { cards
                 .filter((name) => name.cardName.includes(searchFilterName))
+                .filter((rare) => (
+                  (searchFilterRare === 'todas') ? true
+                    : (rare.cardRare === searchFilterRare)))
                 .map((card, index) => (
                   <CardList
                     key={ index }
