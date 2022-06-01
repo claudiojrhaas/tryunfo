@@ -25,6 +25,7 @@ class App extends React.Component {
     searchFilterName: '',
     searchFilterRare: 'todas',
     searchFilterTrunfo: false,
+    isSearchDisabled: false,
   }
 
   validateSaveButton = () => {
@@ -58,6 +59,19 @@ class App extends React.Component {
     const { cards } = this.state;
     const response = cards.some((trunfo) => trunfo.cardTrunfo === true);
     this.setState({ hasTrunfo: response });
+  }
+
+  changeTrunfo = () => {
+    const { searchFilterTrunfo } = this.state;
+    if (searchFilterTrunfo === true) this.setState({ isSearchDisabled: true });
+    else this.setState({ isSearchDisabled: false });
+  }
+
+  onCheckboxChange = ({ target }) => {
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    this.setState({
+      searchFilterTrunfo: value,
+    }, () => this.changeTrunfo());
   }
 
   onInputChange = ({ target }) => {
@@ -111,7 +125,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { cards, searchFilterName, searchFilterRare } = this.state;
+    const { cards,
+      searchFilterName,
+      searchFilterRare,
+      searchFilterTrunfo,
+      isSearchDisabled,
+    } = this.state;
 
     return (
       <div>
@@ -138,6 +157,7 @@ class App extends React.Component {
               data-testid="name-filter"
               value={ searchFilterName }
               onChange={ this.onInputChange }
+              disabled={ isSearchDisabled }
             />
           </label>
           <label htmlFor="searchFilterRare">
@@ -147,6 +167,7 @@ class App extends React.Component {
               data-testid="rare-filter"
               value={ searchFilterRare }
               onChange={ this.onInputChange }
+              disabled={ isSearchDisabled }
             >
               <option value="todas">Todas</option>
               <option value="normal">Normal</option>
@@ -160,16 +181,18 @@ class App extends React.Component {
               type="checkbox"
               name="searchFilterTrunfo"
               data-testid="trunfo-filter"
-              onClick={ this.onInputChange }
+              onClick={ this.onCheckboxChange }
             />
           </label>
           { cards ? (
             <span>
               { cards
-                .filter((name) => name.cardName.includes(searchFilterName))
+                .filter((trunfo) => (searchFilterTrunfo ? trunfo.cardTrunfo : true))
+                .filter((name) => name.cardName
+                  .includes(searchFilterName))
                 .filter((rare) => (
-                  (searchFilterRare === 'todas') ? true
-                    : (rare.cardRare === searchFilterRare)))
+                  (searchFilterRare === 'todas')
+                    || (rare.cardRare === searchFilterRare)))
                 .map((card, index) => (
                   <CardList
                     key={ index }
